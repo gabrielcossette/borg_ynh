@@ -8,7 +8,7 @@ if ssh-keygen -F "{{ server }}" >/dev/null ; then
 else
     BORG_RSH="ssh -i /root/.ssh/id_{{ app }}_ed25519 -oStrictHostKeyChecking=no "
 fi
-repo=ssh://{{ ssh_user }}@{{ server }}/~/backup   #$4
+repo=ssh://{{ ssh_user }}@{{ server }}/~/weblibre   #$4
 
 do_need_mount() {
     true
@@ -44,7 +44,7 @@ This is an automated message from your beloved YunoHost server." | /usr/bin/mail
     borg create $repo::${name}_${current_date} ./ >> $LOGFILE 2>> $ERRFILE
     popd
 
-    borg prune $repo -P ${name} --keep-hourly 2 --keep-daily=7 --keep-weekly=8 --keep-monthly=12 >> $LOGFILE 2>> $ERRFILE
+    borg prune $repo -P ${name} --keep-daily=14 --keep-weekly=6 --keep-monthly=6 >> $LOGFILE 2>> $ERRFILE
 }
 
 do_mount() {
